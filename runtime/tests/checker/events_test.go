@@ -55,7 +55,7 @@ func TestCheckEventDeclaration(t *testing.T) {
 
 	t.Run("InvalidEventNonPrimitiveTypeComposite", func(t *testing.T) {
 
-		for _, compositeKind := range common.CompositeKindsWithBody {
+		for _, compositeKind := range common.CompositeKindsWithFieldsAndFunctions {
 			if compositeKind == common.CompositeKindContract {
 				continue
 			}
