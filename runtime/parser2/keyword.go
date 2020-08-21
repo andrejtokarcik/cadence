@@ -58,4 +58,6 @@ const (
 	keywordTransaction = "transaction"
 	keywordPrepare     = "prepare"
 	keywordExecute     = "execute"
+	keywordEnum        = "enum"
+	keywordCase        = "case"
 )
