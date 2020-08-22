@@ -4621,6 +4621,7 @@ type CompositeType struct {
 	ConstructorParameters []*Parameter
 	nestedTypes           map[string]Type
 	ContainerType         Type
+	RawType               Type
 }
 
 func (t *CompositeType) ExplicitInterfaceConformanceSet() InterfaceSet {
@@ -5462,10 +5463,11 @@ func (t *PublicAccountType) Resolve(_ map[*TypeParameter]Type) Type {
 // Member
 
 type Member struct {
-	ContainerType   Type
-	Access          ast.Access
-	Identifier      ast.Identifier
-	TypeAnnotation  *TypeAnnotation
+	ContainerType  Type
+	Access         ast.Access
+	Identifier     ast.Identifier
+	TypeAnnotation *TypeAnnotation
+	// TODO: replace with dedicated MemberKind enum
 	DeclarationKind common.DeclarationKind
 	VariableKind    ast.VariableKind
 	ArgumentLabels  []string
