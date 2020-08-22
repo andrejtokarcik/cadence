@@ -4626,7 +4626,7 @@ type CompositeType struct {
 	ConstructorParameters []*Parameter
 	nestedTypes           map[string]Type
 	ContainerType         Type
-	EnumInfo              EnumInfo
+	EnumRawType           Type
 }
 
 func (t *CompositeType) ExplicitInterfaceConformanceSet() InterfaceSet {
