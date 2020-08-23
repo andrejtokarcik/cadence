@@ -120,7 +120,7 @@ func PrepareProgram(code string, filename string) (*ast.Program, map[string]stri
 }
 
 var valueDeclarations = append(
-	stdlib.FlowBuiltInFunctions(stdlib.FlowBuiltinImpls{}),
+	stdlib.FlowBuiltInFunctions(stdlib.DefaultFlowBuiltinImpls()),
 	stdlib.BuiltinFunctions...,
 )
 
