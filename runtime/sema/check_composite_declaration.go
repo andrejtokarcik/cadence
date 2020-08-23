@@ -694,7 +694,7 @@ func (checker *Checker) declareEnumConstructor(
 		FunctionType: &FunctionType{
 			Parameters: []*Parameter{
 				{
-					Identifier:     enumRawValueFieldName,
+					Identifier:     EnumRawValueFieldName,
 					TypeAnnotation: NewTypeAnnotation(compositeType.EnumRawType),
 				},
 			},
@@ -744,7 +744,7 @@ func (checker *Checker) declareEnumConstructor(
 		kind:           common.DeclarationKindEnum,
 		pos:            declaration.Identifier.Pos,
 		isConstant:     true,
-		argumentLabels: []string{enumRawValueFieldName},
+		argumentLabels: []string{EnumRawValueFieldName},
 	})
 	checker.report(err)
 }
@@ -1466,7 +1466,7 @@ func (checker *Checker) eventMembersAndOrigins(
 	return
 }
 
-const enumRawValueFieldName = "rawValue"
+const EnumRawValueFieldName = "rawValue"
 const enumRawValueFieldDocString = `
 The raw value of the enum case
 `
@@ -1516,11 +1516,11 @@ func (checker *Checker) enumMembersAndOrigins(
 	// so only has a single member, the raw value field
 
 	members = map[string]*Member{
-		enumRawValueFieldName: {
+		EnumRawValueFieldName: {
 			ContainerType: containerType,
 			Access:        ast.AccessPublic,
 			Identifier: ast.Identifier{
-				Identifier: enumRawValueFieldName,
+				Identifier: EnumRawValueFieldName,
 			},
 			DeclarationKind: common.DeclarationKindField,
 			TypeAnnotation:  NewTypeAnnotation(containerType.EnumRawType),
