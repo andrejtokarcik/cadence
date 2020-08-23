@@ -1757,10 +1757,6 @@ func (interpreter *Interpreter) testEqual(left, right Value) BoolValue {
 		}
 		return left.Equal(interpreter, right)
 
-	case *CompositeValue:
-		// TODO: call `equals` if RHS is composite
-		return false
-
 	case *ArrayValue,
 		*DictionaryValue:
 		// TODO:
