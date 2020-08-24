@@ -18,7 +18,10 @@
 
 package ast
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 type Program struct {
 	// all declarations, in the order they are defined
@@ -230,4 +233,15 @@ func (p *Program) updateDeclarations() {
 	for _, importDeclaration := range p.ImportDeclarations() {
 		p._importLocations = append(p._importLocations, importDeclaration.Location)
 	}
+}
+
+func (p *Program) MarshalJSON() ([]byte, error) {
+	type Alias Program
+	return json.Marshal(&struct {
+		Type string
+		*Alias
+	}{
+		Type:  "Program",
+		Alias: (*Alias)(p),
+	})
 }
