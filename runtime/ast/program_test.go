@@ -126,6 +126,7 @@ func TestProgram_MarshalJSON(t *testing.T) {
 	assert.JSONEq(t,
 		`
         {
+            "Type": "Program",
             "Declarations": []
         }
         `,
