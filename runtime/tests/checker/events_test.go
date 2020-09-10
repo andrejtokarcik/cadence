@@ -37,6 +37,9 @@ func TestCheckEventDeclaration(t *testing.T) {
 	t.Parallel()
 
 	t.Run("ValidEvent", func(t *testing.T) {
+
+		t.Parallel()
+
 		checker, err := ParseAndCheck(t, `
             event Transfer(to: Int, from: Int)
         `)
@@ -55,12 +58,13 @@ func TestCheckEventDeclaration(t *testing.T) {
 
 	t.Run("InvalidEventNonPrimitiveTypeComposite", func(t *testing.T) {
 
-		for _, compositeKind := range common.CompositeKindsWithBody {
-			if compositeKind == common.CompositeKindContract {
-				continue
-			}
+		t.Parallel()
+
+		test := func(compositeKind common.CompositeKind) {
 
 			t.Run(compositeKind.Name(), func(t *testing.T) {
+
+				t.Parallel()
 
 				_, err := ParseAndCheck(t,
 					fmt.Sprintf(
@@ -89,18 +93,26 @@ func TestCheckEventDeclaration(t *testing.T) {
 					assert.IsType(t, &sema.InvalidResourceFieldError{}, errs[2])
 
 				case common.CompositeKindStructure:
-					errs := ExpectCheckerErrors(t, err, 1)
-
-					assert.IsType(t, &sema.InvalidEventParameterTypeError{}, errs[0])
+					require.NoError(t, err)
 
 				default:
 					panic(errors.NewUnreachableError())
 				}
 			})
 		}
+
+		for _, compositeKind := range common.CompositeKindsWithBody {
+			if compositeKind == common.CompositeKindContract {
+				continue
+			}
+
+			test(compositeKind)
+		}
 	})
 
 	t.Run("PrimitiveTypedFields", func(t *testing.T) {
+
+		t.Parallel()
 
 		validTypes := append(
 			sema.AllNumberTypes,
@@ -127,6 +139,8 @@ func TestCheckEventDeclaration(t *testing.T) {
 	})
 
 	t.Run("EventParameterType", func(t *testing.T) {
+
+		t.Parallel()
 
 		validTypes := append(
 			[]sema.Type{
@@ -168,6 +182,9 @@ func TestCheckEventDeclaration(t *testing.T) {
 	})
 
 	t.Run("RedeclaredEvent", func(t *testing.T) {
+
+		t.Parallel()
+
 		_, err := ParseAndCheck(t, `
             event Transfer(to: Int, from: Int)
             event Transfer(to: Int)
@@ -180,6 +197,7 @@ func TestCheckEventDeclaration(t *testing.T) {
 		assert.IsType(t, &sema.RedeclarationError{}, errs[0])
 		assert.IsType(t, &sema.RedeclarationError{}, errs[1])
 	})
+
 }
 
 func TestCheckEmitEvent(t *testing.T) {
