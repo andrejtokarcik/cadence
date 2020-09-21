@@ -32,10 +32,10 @@ test:
 .PHONY: build
 build:
 	go build -o ./runtime/cmd/parse/parse ./runtime/cmd/parse
+	GOARCH=wasm GOOS=js go build -o ./runtime/cmd/parse/parse.wasm ./runtime/cmd/parse
 	go build -o ./runtime/cmd/check/check ./runtime/cmd/check
 	go build -o ./runtime/cmd/main/main ./runtime/cmd/main
-	(cd languageserver && go build -o ./cmd/languageserver/languageserver ./cmd/languageserver)
-	(cd languageserver && GOARCH=wasm GOOS=js go build -o ./cmd/languageserver/languageserver.wasm ./cmd/languageserver)
+	(cd languageserver && make build)
 
 .PHONY: install-tools
 install-tools:
